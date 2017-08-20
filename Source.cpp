@@ -225,19 +225,22 @@ public:
 	}
 };
 
+
+
 int main() {
 	UserDAO  *dao = new UserDAO();
+	AuthorizationController a1;
+	a1.setUserDAO(dao);
 	start:
-	if(user==nullptr){
+	if(user==nullptr) {
 		auth:
-		AuthorizationController a1;
-		a1.setUserDAO(dao);
+		system("CLS");
 		cout<<"**** Qeydiyyat/Girish ****" << endl;
 		cout<<"Qeydiyyatdan kechmek uchun 1" << endl;
 		cout<<"Girish etmek uchun 2-ye basin" <<endl;
-		char ch;
-		cin>>ch;
-		switch(ch){
+		char auth;
+		cin>>auth;
+		switch(auth){
 			case '1':
 				a1.signUp();
 				goto auth;
@@ -251,9 +254,114 @@ int main() {
 				goto auth;
 		}
 	}
-	else{
-		cout<< "Salam !" << " " <<  user->name;
+	else {
+		system("cls");
+		main:
+		cout << "**** Cito-ya xosh geldiniz ****" << endl;
+		cout << "Salam " << " " <<  user->name << "!" << endl;
+		cout << "Ashagidaki menyudan bir bolmeni sechin." << endl;
+		cout << "1 - Bashqa emeliyyatlar" << endl;
+		cout << "2 - Log Out" <<endl;
+		
+		char menu;
+		cin>> menu;
+	
+			
+			if(menu=='2'){
+				a1.signOut();
+				goto start;
+			}
+			else if (menu == '1'){
+				
+					submenu:
+					system("cls");
+					cout << "1 - Profil melumatlarini gor" << endl;
+					cout << "2 - Melumatlarini deyishdir" << endl;
+					cout << "3 - Mesajlarina bax" << endl;
+					cout << "4 - Profil axtar" << endl;
+					cout << "5 - Dost elave et" << endl;
+					cout << "6 - Geri Qayit" << endl;
+					char submenu;
+					cin>>submenu;
+				
+					
+			
+					switch(submenu){
+						case '1':
+							system("cls");
+							cout << "Melumatlariniz" << endl;
+							cout << "Ad : " << user->name << endl;
+							cout << "Soyad : " << user->surname << endl;
+							cout << "Username :" << user->username << endl;
+							cout << "Age :" << user->age << endl;
+							cout << "Password : " << user->password <<endl;
+							backpoint:
+							cout<< "Geri qayitmaq uchun 1 daxil edin." <<endl;
+							char back;
+							cin>>back;
+							if(back=='1'){
+								goto submenu;
+							}
+							else {
+								goto backpoint;
+							}
+							break;
+						case '2':{
+						system("cls");
+							string name;
+							string surname;
+							string password;
+							int age;
+							cout<<"Ad" <<endl;
+							cin>>name;
+							cout<<"Soyad" <<endl;
+							cin>>surname;
+							cout<<"Parol"<<endl;
+							cin>>password;
+							cout<<"Yas"<<endl;
+							cin>>age;
+							User u;
+							u.id=user->id;
+							u.name=name;
+							u.surname=surname;
+							u.password=password;
+							u.age=age;
+							dao->update(u);
+				
+							user=nullptr;
+							goto auth;
+							break;
+						}
+							
+							
+						case '3':
+							system("cls");
+						
+							break;
+						case '4':
+							system("cls");
+						
+							break;
+						case '5':
+							system("cls");
+							
+							break;
+						case '6':
+							goto main;
+							break;
+						default:
+							cout << "YANLISH SECIM" <<endl;
+					
+				
+				}
+				
+			}
+			else{
+				goto main;
+			}
 		
 	}
 	return 0;
 }
+
+ 
