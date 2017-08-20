@@ -184,6 +184,7 @@ public:
 		dao->update(*user);
 
 	}
+	
 	void search() {
 		string name;
 		cout << "Axtarish etmek istediyiniz adi yazin" << endl;
@@ -272,8 +273,10 @@ int main() {
 				goto start;
 			}
 			else if (menu == '1'){
-				
+						
 					submenu:
+					FriendController friendcontroller;
+					friendcontroller.setUserDAO(dao);
 					system("cls");
 					cout << "1 - Profil melumatlarini gor" << endl;
 					cout << "2 - Melumatlarini deyishdir" << endl;
@@ -338,22 +341,22 @@ int main() {
 							system("cls");
 						
 							break;
-						case '4':{
-								system("cls");
-							cout << "Profil axtarma bolmesi" << endl;
-							cout << "Her hansi bir userin ID-sini bilerek onu dost kimi elave ede bilersiniz." << endl;
-							cout << "Ad daxil edin" << endl;
-							string name;
-							cin>>name;
-							vector<User*> searchresults = dao->getUsersByName(name);
-							for(User* user : searchresults){
-								cout<<"ID :" << user->id <<" " << user->name << " " <<  user->surname << " " <<(user->username) <<" "<<endl;
+						
+						case '4':
+							system("cls");
+							friendcontroller.search();
+							friendbackpoint:
+							cout<< "Geri qayitmaq uchun 1 daxil edin." <<endl;
+							char friendback;
+							cin>>friendback;
+							if(back=='1'){
+								goto submenu;
+							}
+							else {
+								goto friendbackpoint;
 							}
 							break;
-						
-						}
-							
-						
+			
 						case '5':
 							system("cls");
 							
