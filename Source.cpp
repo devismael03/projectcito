@@ -338,10 +338,22 @@ int main() {
 							system("cls");
 						
 							break;
-						case '4':
-							system("cls");
-						
+						case '4':{
+								system("cls");
+							cout << "Profil axtarma bolmesi" << endl;
+							cout << "Her hansi bir userin ID-sini bilerek onu dost kimi elave ede bilersiniz." << endl;
+							cout << "Ad daxil edin" << endl;
+							string name;
+							cin>>name;
+							vector<User*> searchresults = dao->getUsersByName(name);
+							for(User* user : searchresults){
+								cout<<"ID :" << user->id <<" " << user->name << " " <<  user->surname << " " <<(user->username) <<" "<<endl;
+							}
 							break;
+						
+						}
+							
+						
 						case '5':
 							system("cls");
 							
