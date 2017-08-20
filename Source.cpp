@@ -40,6 +40,7 @@ public:
 			user->username = u.username;
 			user->password = u.password;
 			user->friends = u.friends;
+			users.push_back(user);
 		}
 		else {
 			return;
@@ -219,8 +220,40 @@ public:
 		}
 		
 	}
+	void setUserDAO(UserDAO *dao) {
+		this->dao = dao;
+	}
 };
-int main() {
 
+int main() {
+	UserDAO  *dao = new UserDAO();
+	start:
+	if(user==nullptr){
+		auth:
+		AuthorizationController a1;
+		a1.setUserDAO(dao);
+		cout<<"**** Qeydiyyat/Girish ****" << endl;
+		cout<<"Qeydiyyatdan kechmek uchun 1" << endl;
+		cout<<"Girish etmek uchun 2-ye basin" <<endl;
+		char ch;
+		cin>>ch;
+		switch(ch){
+			case '1':
+				a1.signUp();
+				goto auth;
+				break;
+			case '2':
+				a1.signIn();
+				goto start;
+				break;
+			default:
+				cout<< "SECIM YANLISHDIR" << endl;
+				goto auth;
+		}
+	}
+	else{
+		cout<< "Salam !" << " " <<  user->name;
+		
+	}
 	return 0;
 }
