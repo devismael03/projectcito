@@ -185,6 +185,12 @@ public:
 
 	}
 	
+	void listAllFriends(){
+		for(User* friendItem : user->friends){
+			cout<<friendItem->name << " " << friendItem->surname << " " << friendItem->username << " " << friendItem->age<<" yas"<<endl;
+		}
+	}
+	
 	void search() {
 		string name;
 		cout << "Axtarish etmek istediyiniz adi yazin" << endl;
@@ -283,7 +289,8 @@ int main() {
 					cout << "3 - Mesajlarina bax" << endl;
 					cout << "4 - Profil axtar" << endl;
 					cout << "5 - Dost elave et" << endl;
-					cout << "6 - Geri Qayit" << endl;
+					cout << "6 - Butun dostlarini gor" << endl;
+					cout << "7 - Geri Qayit" <<endl;
 					char submenu;
 					cin>>submenu;
 				
@@ -309,8 +316,8 @@ int main() {
 								goto backpoint;
 							}
 							break;
-						case '2':{
-						system("cls");
+						case '2': {
+							system("cls");
 							string name;
 							string surname;
 							string password;
@@ -349,7 +356,7 @@ int main() {
 							cout<< "Geri qayitmaq uchun 1 daxil edin." <<endl;
 							char friendback;
 							cin>>friendback;
-							if(back=='1'){
+							if(friendback=='1'){
 								goto submenu;
 							}
 							else {
@@ -359,9 +366,32 @@ int main() {
 			
 						case '5':
 							system("cls");
-							
+							friendcontroller.add();
+							friendaddbackpoint:
+							cout<< "Geri qayitmaq uchun 1 daxil edin." <<endl;
+							char friendaddback;
+							cin>>friendaddback;
+							if(friendaddback=='1'){
+								goto submenu;
+							}
+							else {
+								goto friendaddbackpoint;
+							}
 							break;
 						case '6':
+							friendcontroller.listAllFriends();
+							listbackpoint:
+							cout<< "Geri qayitmaq uchun 1 daxil edin." <<endl;
+							char listback;
+							cin>>listback;
+							if(listback=='1'){
+								goto submenu;
+							}
+							else {
+								goto listbackpoint;
+							}
+							break;
+						case '7':
 							goto main;
 							break;
 						default:
