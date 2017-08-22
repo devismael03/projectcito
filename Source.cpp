@@ -113,6 +113,20 @@ User *user;
 class MessageDAO {
 
 	vector<Message*>messages;
+	public:
+		void save(Message &m){
+			Message *message=new Message();
+			message->id=messageId;
+			message->senderId=m.senderId;
+			message->receiverId=m.receiverId;
+			message->t=m.t;
+			message->text=m.text;
+			messageId++;
+			messages.push_back(message);
+			
+		}
+		
+		
 };
 class AuthorizationController {
 	UserDAO *dao;
