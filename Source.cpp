@@ -236,6 +236,7 @@ public:
 			long long int counter = 0;
 			if (friendItem == _friend) {
 				user->friends.erase(user->friends.begin() + counter);
+				_friend->friends.erase(_friend->friends.begin() + counter);
 				return;
 			}
 			counter++;
@@ -306,7 +307,7 @@ int main() {
 					cout << "4 - Profil axtar" << endl;
 					cout << "5 - Dost elave et" << endl;
 					cout << "6 - Butun dostlarini gor" << endl;
-					cout << "7 - Mesaj yaz" << endl;
+					cout << "7 - Dost sil" << endl;
 					cout << "8 - Geri Qayit" <<endl;
 					char submenu;
 					cin>>submenu;
@@ -410,6 +411,19 @@ int main() {
 							}
 							break;
 						case '7':
+							system("cls");
+							friendcontroller.removeFriend();
+							backpoint5:
+							cout<< "Geri qayitmaq uchun 1 daxil edin." <<endl;
+							char deleteback;
+							cin>>deleteback;
+							if(deleteback=='1'){
+								goto submenu;
+							}
+							else {
+								goto backpoint5;
+							}
+							break;
 							
 							break;
 						case '8':
