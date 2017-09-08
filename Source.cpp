@@ -127,6 +127,38 @@ class MessageDAO {
 			
 			
 		}
+		vector<ID> getMessages(ID id){
+			vector<ID>messagesenders;
+			for(Message* message : messages){
+				if(message->senderId == id){
+					if(!exists(message->receiverId,messagesenders)){
+					
+						messagesenders.push_back(message->receiverId);
+						
+					}	
+					else{
+						continue;
+					}
+				}
+				else if(message->receiverId == id){
+					if(!exists(message->senderId,messagesenders)){
+						messagesenders.push_back(message->senderId);
+					}
+					else{
+						continue;
+					}
+				}
+			}
+			return messagesenders;
+		}
+		bool exists(ID id,vector<ID>vec){
+			for(ID did : vec){
+				if(did == id){
+					return true;
+				}
+			}
+			return false;
+		}
 		
 		
 		
@@ -368,10 +400,21 @@ int main() {
 						}
 							
 							
-						case '3':
+						case '3':{
 							system("cls");
-						
+							vector<ID> messageheaders = mdao.getMessages(user->id);
+							for(ID id : messageheaders){
+								User *temp = dao->findById(id);
+								cout << "ID :" <<id << " Name :" <<temp->name << " Surname:" <<temp->surname << endl;
+							}
+							
+							cout<< "Mesajlashmanin tam halini gormek ucun ID daxil edin :" << endl;
+							ID id;
+							cin>>id;
+							
 							break;
+						}
+							
 						
 						case '4':
 							system("cls");
