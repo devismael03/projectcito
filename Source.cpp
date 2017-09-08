@@ -160,6 +160,15 @@ class MessageDAO {
 			return false;
 		}
 		
+		vector<Message*> getFullMessages(ID id){
+			vector<Message*>fullmessages;
+			for(Message*message : messages){
+				if((message->senderId == id && message->receiverId == user->id) || (message->receiverId == id && message->senderId == user->id)){
+					fullmessages.push_back(message);
+				}
+			}
+			return fullmessages;
+		}
 		
 		
 };
@@ -237,7 +246,7 @@ public:
 	
 	void listAllFriends(){
 		for(User* friendItem : user->friends){
-			cout<<friendItem->name << " " << friendItem->surname << " " << friendItem->username << " " << friendItem->age<<" yas"<<endl;
+			cout<<"ID :"<< friendItem->id << " " << friendItem->name << " " << friendItem->surname << " " << friendItem->username << " " << friendItem->age<<" yas"<<endl;
 		}
 	}
 	
@@ -403,6 +412,8 @@ int main() {
 						case '3':{
 							system("cls");
 							vector<ID> messageheaders = mdao.getMessages(user->id);
+							if(messageheaders.size()){
+							
 							for(ID id : messageheaders){
 								User *temp = dao->findById(id);
 								cout << "ID :" <<id << " Name :" <<temp->name << " Surname:" <<temp->surname << endl;
@@ -411,8 +422,42 @@ int main() {
 							cout<< "Mesajlashmanin tam halini gormek ucun ID daxil edin :" << endl;
 							ID id;
 							cin>>id;
+							system("cls");
+							vector<Message*>tempmessages = mdao.getFullMessages(id);
+							for(Message* message:tempmessages){
+								if(message->senderId == user->id){
+									cout<< "\t\t\t\t\t\t\t\t" << message->text <<endl;
+								}
+								else{
+									cout<<message->text <<endl;
+								}
+							}
+							backpoint8:
+							cout<< "Geri qayitmaq uchun 1 daxil edin." <<endl;
+							char back;
+							cin>>back;
+							if(back=='1'){
+								goto submenu;
+							}
+							else {
+								goto backpoint8;
+							}
 							
-							break;
+						}
+						else{
+							cout<<"Teesufki mesajiniz yoxdur" <<endl;
+							backpoint7:
+							cout<< "Geri qayitmaq uchun 1 daxil edin." <<endl;
+							char back;
+							cin>>back;
+							if(back=='1'){
+								goto submenu;
+							}
+							else {
+								goto backpoint7;
+							}
+						}
+						break;
 						}
 							
 						
@@ -477,7 +522,7 @@ int main() {
 						case '8':
 							{
 							system("cls");
-							int id = 0;
+							ID id = 0;
 							cout << "Mesaj yazacaginiz profil ID :" << endl;
 							cin >> id;
 							cout << "Mesajiniz :";
