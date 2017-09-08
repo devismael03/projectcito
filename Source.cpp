@@ -195,6 +195,7 @@ public:
 			return;
 		}
 		user->friends.push_back(_friend);
+		_friend->friends.push_back(user);
 		dao->update(*user);
 
 	}
@@ -278,6 +279,7 @@ int main() {
 	else {
 		system("cls");
 		main:
+		system("cls");
 		cout << "**** Cito-ya xosh geldiniz ****" << endl;
 		cout << "Salam " << " " <<  user->name << "!" << endl;
 		cout << "Ashagidaki menyudan bir bolmeni sechin." << endl;
@@ -304,7 +306,8 @@ int main() {
 					cout << "4 - Profil axtar" << endl;
 					cout << "5 - Dost elave et" << endl;
 					cout << "6 - Butun dostlarini gor" << endl;
-					cout << "7 - Geri Qayit" <<endl;
+					cout << "7 - Mesaj yaz" << endl;
+					cout << "8 - Geri Qayit" <<endl;
 					char submenu;
 					cin>>submenu;
 				
@@ -319,7 +322,7 @@ int main() {
 							cout << "Username :" << user->username << endl;
 							cout << "Age :" << user->age << endl;
 							cout << "Password : " << user->password <<endl;
-							backpoint:
+							backpoint1:
 							cout<< "Geri qayitmaq uchun 1 daxil edin." <<endl;
 							char back;
 							cin>>back;
@@ -327,7 +330,7 @@ int main() {
 								goto submenu;
 							}
 							else {
-								goto backpoint;
+								goto backpoint1;
 							}
 							break;
 						case '2': {
@@ -366,7 +369,7 @@ int main() {
 						case '4':
 							system("cls");
 							friendcontroller.search();
-							friendbackpoint:
+							backpoint2:
 							cout<< "Geri qayitmaq uchun 1 daxil edin." <<endl;
 							char friendback;
 							cin>>friendback;
@@ -374,14 +377,14 @@ int main() {
 								goto submenu;
 							}
 							else {
-								goto friendbackpoint;
+								goto backpoint2;
 							}
 							break;
 			
 						case '5':
 							system("cls");
 							friendcontroller.add();
-							friendaddbackpoint:
+							backpoint3:
 							cout<< "Geri qayitmaq uchun 1 daxil edin." <<endl;
 							char friendaddback;
 							cin>>friendaddback;
@@ -389,12 +392,13 @@ int main() {
 								goto submenu;
 							}
 							else {
-								goto friendaddbackpoint;
+								goto backpoint3;
 							}
 							break;
 						case '6':
+							system("cls");
 							friendcontroller.listAllFriends();
-							listbackpoint:
+							backpoint4:
 							cout<< "Geri qayitmaq uchun 1 daxil edin." <<endl;
 							char listback;
 							cin>>listback;
@@ -402,10 +406,13 @@ int main() {
 								goto submenu;
 							}
 							else {
-								goto listbackpoint;
+								goto backpoint4;
 							}
 							break;
 						case '7':
+							
+							break;
+						case '8':
 							goto main;
 							break;
 						default:
