@@ -21,7 +21,7 @@ public:
 	ID id;
 	ID senderId;
 	ID receiverId;
-	time_t t;
+	string t;
 	string text;
 	
 
@@ -121,10 +121,13 @@ class MessageDAO {
 			message->receiverId=m.receiverId;
 			message->t=m.t;
 			message->text=m.text;
+		
 			messageId++;
 			messages.push_back(message);
 			
+			
 		}
+		
 		
 		
 };
@@ -254,6 +257,9 @@ int main() {
 	UserDAO  *dao = new UserDAO();
 	AuthorizationController a1;
 	a1.setUserDAO(dao);
+	FriendController friendcontroller;
+	friendcontroller.setUserDAO(dao);
+	MessageDAO mdao;
 	start:
 	if(user==nullptr) {
 		auth:
@@ -298,8 +304,7 @@ int main() {
 			else if (menu == '1'){
 						
 					submenu:
-					FriendController friendcontroller;
-					friendcontroller.setUserDAO(dao);
+					
 					system("cls");
 					cout << "1 - Profil melumatlarini gor" << endl;
 					cout << "2 - Melumatlarini deyishdir" << endl;
@@ -308,7 +313,8 @@ int main() {
 					cout << "5 - Dost elave et" << endl;
 					cout << "6 - Butun dostlarini gor" << endl;
 					cout << "7 - Dost sil" << endl;
-					cout << "8 - Geri Qayit" <<endl;
+					cout << "8 - Mesaj yaz" << endl;
+					cout << "9 - Geri qayit" << endl;
 					char submenu;
 					cin>>submenu;
 				
@@ -425,12 +431,43 @@ int main() {
 							}
 							break;
 							
-							break;
 						case '8':
+							{
+							system("cls");
+							int id = 0;
+							cout << "Mesaj yazacaginiz profil ID :" << endl;
+							cin >> id;
+							cout << "Mesajiniz :";
+							string message;
+							cin.ignore();  //bufferdeki /n -i silmek ucun ishledilib
+							getline(cin,message);
+							Message m;
+							m.id = messageId;
+							m.senderId = user->id;
+							m.receiverId = id;
+							m.t = "Some time";
+							m.text = message;
+							mdao.save(m);
+							backpoint6:
+							cout<< "Geri qayitmaq uchun 1 daxil edin." <<endl;
+							char messageback;
+							cin>>messageback;
+							if(messageback=='1'){
+								goto submenu;
+							}
+							else {
+								goto backpoint6;
+							}
+							break;
+							
+							}
+						case '9':
 							goto main;
 							break;
+						
 						default:
 							cout << "YANLISH SECIM" <<endl;
+							break;
 					
 				
 				}
